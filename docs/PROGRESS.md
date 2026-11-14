@@ -7,19 +7,20 @@ _Update at the end of every session. Newest log entry on top._
 | Phase                    | Status         |
 | ------------------------ | -------------- |
 | 0 — Setup                | ✅ Done        |
-| 1 — 3D pouch             | ⬜ Not started |
+| 1 — 3D pouch             | 🟨 Built, waiting for Sam to approve previews |
 | 2 — Hero                 | ⬜ Not started |
 | 3 — Scroll story         | ⬜ Not started |
 | 4 — Product card         | ⬜ Not started |
 | 5 — Polish & demo-ready  | ⬜ Not started |
 
-**Current phase:** 0 done; Phase 1 next (not started)
+**Current phase:** 1 built; waiting for Sam to approve previews
 **Repo:** `Jewar-Trust-Project`
 **Live URL:** not deployed (deploy happens in Phase 5; D-026)
 
 ## Next steps
 
-1. Phase 1 — 3D pouch, when Sam says so.
+1. Sam: look at `blender/previews/*.png` (front, three-quarter, side, back, below) and approve or ask for changes.
+2. Phase 2 — Hero, only when Sam says so.
 
 ## Open questions (for Sam / client)
 
@@ -37,6 +38,15 @@ _Update at the end of every session. Newest log entry on top._
 - Anything marked TO CONFIRM is hidden.
 
 ## Session log
+
+### 2026-11-14 — Phase 1 (Claude Code)
+
+- `blender/build_pouch.py`: one watertight mesh (0 open edges, checked in the script), 8.7k tris. Front and back share edges at top and sides; open into a 9 cm gusset with a flat base. Sizes are constants at the top.
+- Window shine: 128×207 roughness map (D-027). Export: metres, origin bottom-centre, front +Z.
+- Renders: Cycles CPU, 64 samples, denoise. Previews in `blender/previews/` (front, three-quarter, side, back, below). `public/images/pouch-front.webp` is transparent (89 KB).
+- `just model` and `just optimize` work. `public/models/pouch.glb`: 464 KB, 4,375 triangles (budget 1.5 MB / 20k). Meshopt + WebP, textures capped at 2048.
+- Added `@gltf-transform/cli` (D-028). `just check` and `just build` pass. Page loads, no console errors.
+- Puff is tuned by eye against the reference photo; Sam may want it fuller or flatter (`PUFF` constant).
 
 ### 2026-11-14 — Phase 0 (Claude Code)
 
