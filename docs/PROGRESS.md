@@ -8,18 +8,18 @@ _Update at the end of every session. Newest log entry on top._
 | ------------------------ | -------------- |
 | 0 — Setup                | ✅ Done        |
 | 1 — 3D pouch             | ✅ Done        |
-| 2 — Hero                 | ⬜ Not started |
+| 2 — Hero                 | ✅ Done        |
 | 3 — Scroll story         | ⬜ Not started |
 | 4 — Product card         | ⬜ Not started |
 | 5 — Polish & demo-ready  | ⬜ Not started |
 
-**Current phase:** 1 done; Phase 2 next (waiting for Sam)
+**Current phase:** 2 done; Phase 3 next (waiting for Sam)
 **Repo:** `Jewar-Trust-Project`
 **Live URL:** not deployed (deploy happens in Phase 5; D-026)
 
 ## Next steps
 
-1. Phase 2 — Hero, only when Sam says so.
+1. Phase 3 — Scroll story, only when Sam says so. Watch the JS budget: 403 KB gzip now (limit 450 KB).
 
 ## Open questions (for Sam / client)
 
@@ -37,6 +37,16 @@ _Update at the end of every session. Newest log entry on top._
 - Anything marked TO CONFIRM is hidden.
 
 ## Session log
+
+### 2026-11-14 — Phase 2 (Claude Code)
+
+- Added three, @react-three/fiber, drei, zustand, motion, r3f-perf (dev), @types/three (all approved).
+- Hero: wordmark, `StoryCanvas` + `Pouch` (float + sway, D-031), brand line, scroll hint, `Loader`. Transparent canvas, Neutral tone mapping, procedural lights (D-033). Real `product.ts`, `ui` store, `useReducedMotion`, `useWebGL`.
+- Playwright at 1440×900 and 390×844: pouch, text and scroll hint fit, no horizontal scroll, no errors. Console has only a `THREE.Clock` deprecation warning from R3F and a GPU-stall driver note.
+- Network: every request is on localhost (the `blob:` ones are the model's textures). Colours compared with the reference photo: red band, cream and green look right.
+- Reduced motion: pouch still and front-facing, no bounce. No WebGL (stubbed): static `pouch-front.webp`, no loader.
+- JS 403 KB gzip (budget 450 KB). Not measured: fps with r3f-perf; headless Chromium uses software GL, so please check in `just dev` on your laptop.
+- Phone: pouch is scaled 1.15× on tall screens (`Pouch.tsx`).
 
 ### 2026-11-14 — Phase 1 follow-up (Claude Code)
 
