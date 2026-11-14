@@ -1,6 +1,6 @@
 # CLAUDE.md — Jewar Trust (Demo 3D Website, V1)
 
-Repo: `Jewar-Trust-Project` · Live: `https://<username>.github.io/Jewar-Trust-Project/`
+Repo: `Jewar-Trust-Project` · Live: `https://<username>.github.io/Jewar-Trust-Project/` (deployed in Phase 5)
 
 You are building a **demo 3D website** for the Jewar brand's **Everyday Basmati Rice**. It is a single scroll page, static, deployed on **GitHub Pages**. It will be shown to the client as a pitch.
 
@@ -19,6 +19,7 @@ Read these before every session, in this order:
    - Commits and pushes use Sam's own git identity (`git config user.name/user.email`). Never change git config.
    - **No** `Co-Authored-By` trailers, **no** "Generated with Claude Code" lines, **no** session links in commits or PRs. `.claude/settings.json` turns these off; the Lefthook `commit-msg` hook blocks them too.
    - Never add collaborators, bots or apps to the GitHub repo.
+   - Never use the `gh` CLI. Sam does all commits, pushes and GitHub settings.
 2. **Approved toolkit only.** Use only the tools listed below. No new package, library, service or file type without Sam's approval. If you think something is needed, stop and ask — write it under "Open questions" in `docs/PROGRESS.md`.
 3. **Stay inside the current phase.** Finish its tasks and checks. Don't start the next phase until Sam says so.
 4. **Content truth.**
@@ -33,6 +34,7 @@ Read these before every session, in this order:
 
 - `just check` passes (Biome + type check).
 - `just build` passes.
+- All checks are local (`just preview` + Playwright MCP). Deploy only in Phase 5.
 - Visual check with Playwright MCP: open the page, look at desktop (1440×900) and phone (390×844), read the console — no errors.
 - Update `docs/PROGRESS.md` (what was done, what's next, open questions). Add any new decision to `docs/DECISIONS.md`.
 - Commit with a short message: `phase-N: what changed`. Push only when Sam asks.

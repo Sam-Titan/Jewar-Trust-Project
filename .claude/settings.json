@@ -6,6 +6,6 @@
     "sessionUrl": false
   },
   "permissions": {
-    "deny": ["Bash(git config *)", "Bash(gh repo edit *)", "Bash(gh api *collaborators*)"]
+    "deny": ["Bash(git config *)", "Bash(gh *)"]
   }
 }

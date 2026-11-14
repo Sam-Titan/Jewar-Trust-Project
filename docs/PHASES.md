@@ -1,12 +1,12 @@
 # PHASES — Jewar Trust Demo (V1)
 
-**Every phase ends with:** `just check` + `just build` pass · Playwright visual check (desktop + phone, no console errors) · `docs/PROGRESS.md` updated · commit under Sam's name only · live on GitHub Pages (from Phase 0 on).
+**Every phase ends with:** `just check` + `just build` pass · Playwright visual check (desktop + phone, no console errors) · `docs/PROGRESS.md` updated · commit under Sam's name only · all checks local (D-026); deploy only in Phase 5.
 
 Do one phase at a time. Start the next only when Sam says so.
 
 ---
 
-## Phase 0 — Setup & first deploy
+## Phase 0 — Setup
 
 **Tasks**
 
@@ -16,11 +16,11 @@ Do one phase at a time. Start the next only when Sam says so.
 - Biome, `tsc`, Justfile (all commands in CLAUDE.md, model/optimize/lh can be stubs).
 - Lefthook: pre-commit (Biome, `tsc`, `gitleaks protect --staged`); commit-msg (block `Co-Authored-By` / "Generated with").
 - `.claude/settings.json` with attribution off.
-- GitHub Actions: `ci.yml`, `deploy.yml` (Pages via `actions/deploy-pages`). Dependabot.
+- GitHub Actions: `ci.yml` (on push), `deploy.yml` (manual `workflow_dispatch` only; used in Phase 5). Dependabot.
 - Copy reference pack into `assets/reference/`.
 - Placeholder page: cream background, wordmark image, "Coming soon" in Fraunces.
 
-**Done when:** placeholder page is live on GitHub Pages with correct colours, fonts and wordmark; hooks block a test commit with a `Co-Authored-By` line.
+**Done when:** placeholder page runs locally under `/Jewar-Trust-Project/` (`just preview`) with correct colours, fonts and wordmark; hooks block a test commit with a `Co-Authored-By` line.
 
 ---
 
@@ -85,6 +85,6 @@ Do one phase at a time. Start the next only when Sam says so.
 - r3f-perf check; trim draw calls/texture size if needed.
 - Mobile pass (real phone if possible), accessibility pass, meta tags + OG image + favicon.
 - Playwright smoke test: page loads, story scrolls, card opens, toast shows.
-- Final deploy. Write a short **pitch checklist** in `docs/PROGRESS.md` (link, what to show, what is placeholder).
+- Deploy (Sam runs `deploy.yml`, sets Pages source, checks the live URL). Write a short **pitch checklist** in `docs/PROGRESS.md` (link, what to show, what is placeholder).
 
 **Done when:** all Lighthouse targets met, smoke test green in CI, Sam signs off.
