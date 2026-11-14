@@ -9,17 +9,18 @@ _Update at the end of every session. Newest log entry on top._
 | 0 — Setup                | ✅ Done        |
 | 1 — 3D pouch             | ✅ Done        |
 | 2 — Hero                 | ✅ Done        |
-| 3 — Scroll story         | ⬜ Not started |
+| 3 — Scroll story         | ✅ Done (waiting for Sam's check) |
 | 4 — Product card         | ⬜ Not started |
 | 5 — Polish & demo-ready  | ⬜ Not started |
 
-**Current phase:** 2 done; Phase 3 next (waiting for Sam)
+**Current phase:** 3 done; Phase 4 next (waiting for Sam)
 **Repo:** `Jewar-Trust-Project`
 **Live URL:** not deployed (deploy happens in Phase 5; D-026)
 
 ## Next steps
 
-1. Phase 3 — Scroll story, only when Sam says so. Watch the JS budget: 403 KB gzip now (limit 450 KB).
+1. Sam: check scroll smoothness in `just dev` on a laptop and a real phone; tune story height (`h-[400svh]` in `ScrollStory.tsx`) and `STEP_ANGLES` in `Pouch.tsx` if needed.
+2. Phase 4 — Product card, only when Sam says so. JS budget: 412 KB gzip now (limit 450 KB).
 
 ## Open questions (for Sam / client)
 
@@ -37,6 +38,15 @@ _Update at the end of every session. Newest log entry on top._
 - Anything marked TO CONFIRM is hidden.
 
 ## Session log
+
+### 2026-11-14 — Phase 3 (Claude Code)
+
+- D-035: 3D code is a lazy chunk. gzip: initial JS **132 KB**, 3D chunk **280 KB**, total 412 KB (budget 450 KB). Loader progress now comes from the `ui` store.
+- D-036: key light `#FFF4E6`. Paper sample (render vs photo): 216/208/200 vs 245/234/224. Hue is close; the render is darker. Left as asked (colour only); intensity could be raised if Sam wants it brighter.
+- Scroll story: sticky canvas, per-step angles, callouts left/right on desktop and below the pouch on phone, badge on step 4, end state with "Explore the product" (does nothing until Phase 4). Farm strip with parallax, footer with socials (SPEC §7).
+- Checked with Playwright at 1440×900 and 390×844: all five steps and end state readable, no horizontal scroll, no layout jumps, no console errors. Reduced motion: plain list, no sticky. No WebGL: static image, 3D chunk and `pouch.glb` never requested.
+- Not measured: fps (headless uses software GL) and a real "text before 3D" gap (localhost is too fast to see it; the chunk is a separate request).
+- Vite warns that the 3D chunk is over 500 KB raw. Expected; ignored.
 
 ### 2026-11-14 — Phase 2 (Claude Code)
 

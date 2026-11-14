@@ -1,7 +1,8 @@
-import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
+import { Environment, Lightformer, useProgress } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { NeutralToneMapping } from "three";
+import { useUi } from "@/store/ui";
 import { Pouch } from "./Pouch";
 
 // r3f-perf is dev only; the DEV check lets the bundler drop it from production.
@@ -9,7 +10,20 @@ const Perf = import.meta.env.DEV
   ? lazy(() => import("r3f-perf").then((m) => ({ default: m.Perf })))
   : null;
 
-export function StoryCanvas({ animate }: { animate: boolean }) {
+// Copies drei's load progress into our store, so the Loader (main chunk) needs no drei.
+function ProgressBridge() {
+  const progress = useProgress((s) => s.progress);
+  const setProgress = useUi((s) => s.setProgress);
+  useEffect(() => {
+    setProgress(progress);
+  }, [progress, setProgress]);
+  return null;
+}
+
+// Warm key light so the paper matches the photo's cream (D-036).
+const KEY_LIGHT_COLOR = "#FFF4E6";
+
+export default function StoryCanvas({ animate }: { animate: boolean }) {
   return (
     <Canvas
       dpr={[1, 1.75]}
@@ -21,6 +35,7 @@ export function StoryCanvas({ animate }: { animate: boolean }) {
         gl.setClearColor(0x000000, 0);
       }}
     >
+      <ProgressBridge />
       {/* Procedural light only. No HDR file, nothing downloaded (D-033). */}
       <Environment resolution={256} environmentIntensity={0.95}>
         <Lightformer form="rect" intensity={2.2} position={[0, 3, 4]} scale={[8, 3, 1]} />
@@ -28,19 +43,10 @@ export function StoryCanvas({ animate }: { animate: boolean }) {
         <Lightformer form="rect" intensity={1} position={[4, 1, 2]} scale={[3, 5, 1]} />
         <Lightformer form="ring" intensity={0.6} position={[0, -2, 3]} scale={4} />
       </Environment>
-      <directionalLight position={[1.5, 2.5, 3]} intensity={1.4} />
+      <directionalLight color={KEY_LIGHT_COLOR} position={[1.5, 2.5, 3]} intensity={1.4} />
       <Suspense fallback={null}>
         <Pouch animate={animate} />
       </Suspense>
-      <ContactShadows
-        position={[0, -0.135, 0]}
-        opacity={0.35}
-        scale={0.8}
-        blur={2.4}
-        far={0.4}
-        resolution={512}
-        frames={animate ? Number.POSITIVE_INFINITY : 1}
-      />
       {Perf && (
         <Suspense fallback={null}>
           <Perf position="top-left" />

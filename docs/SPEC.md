@@ -77,6 +77,7 @@ All of this lives in `src/data/product.ts`. Unconfirmed values are flagged `TO C
 
 - Pack: `assets/reference/` (front art, product photo).
 - jewarorganic.com (checked 2026-11-14): brand line, footer tagline, prices, shopper info, socials, registered office.
+- Socials: Facebook `https://www.facebook.com/jewarorganic/` · Instagram `https://www.instagram.com/jewarorganics/`.
 - **Never** use the word "organic" for this product.
 
 ## 8. Behaviour & quality

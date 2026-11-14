@@ -1,5 +1,7 @@
 import { Loader } from "@/components/Loader";
-import { Hero } from "@/components/sections/Hero";
+import { Stage } from "@/components/Stage";
+import { FarmStrip } from "@/components/sections/FarmStrip";
+import { Footer } from "@/components/sections/Footer";
 import { useWebGL } from "@/hooks/useWebGL";
 
 export default function App() {
@@ -7,7 +9,9 @@ export default function App() {
   return (
     <main>
       {webgl && <Loader />}
-      <Hero />
+      <Stage />
+      <FarmStrip />
+      <Footer />
     </main>
   );
 }

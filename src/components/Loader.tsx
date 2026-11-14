@@ -1,10 +1,9 @@
-import { useProgress } from "@react-three/drei";
 import { AnimatePresence, motion } from "motion/react";
 import { useUi } from "@/store/ui";
 
 export function Loader() {
   const ready = useUi((s) => s.modelReady);
-  const progress = useProgress((s) => s.progress);
+  const progress = useUi((s) => s.progress);
   const base = import.meta.env.BASE_URL;
 
   return (
