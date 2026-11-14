@@ -31,7 +31,7 @@ model:
 # Compress the raw model into public/models/pouch.glb
 optimize:
     mkdir -p public/models
-    pnpm exec gltf-transform optimize blender/out/pouch-raw.glb public/models/pouch.glb --compress meshopt --texture-compress webp --texture-size 2048
+    pnpm exec gltf-transform optimize blender/out/pouch-raw.glb public/models/pouch.glb --compress meshopt --texture-compress webp --texture-size 2048 --simplify false
     pnpm exec gltf-transform inspect public/models/pouch.glb
     ls -l public/models/pouch.glb
 
