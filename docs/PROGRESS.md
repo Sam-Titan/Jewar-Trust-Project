@@ -22,7 +22,7 @@ _Update at the end of every session. Newest log entry on top._
 1. Sam: decide on the Lighthouse performance score (see Open questions) .
 2. Sam: check on a real phone and laptop (fps, drag feel, toast).
 3. Sam: commit, push, set Pages source to "GitHub Actions", run `deploy.yml`, open the live URL.
-4. Fill in the live URL in `index.html` (`og:image` needs a full URL to work in link previews).
+4. ~~Fill in the live URL in `index.html`~~ Done: `og:url` and `og:image` use the full URL.
 
 ## Open questions (for Sam / client)
 
@@ -42,7 +42,7 @@ _Update at the end of every session. Newest log entry on top._
 
 ## Pitch checklist
 
-- **Link:** `https://<username>.github.io/Jewar-Trust-Project/` (after deploy).
+- **Link:** https://sam-titan.github.io/Jewar-Trust-Project/ (live after Sam runs `deploy.yml`).
 - **Show, in order:** hero (pouch floats) → scroll: five properties, pouch turns, badge on step 4 → "Explore the product" → drag the pouch, switch 1 kg / 5 kg → Add to Cart (demo toast) → farm strip and footer.
 - **Say up front (placeholders):** back of the pouch is a concept, not their artwork; Add to Cart / Buy Now don't work; 5 kg price (₹780) is a placeholder; origin, shelf life and cooking text are hidden until confirmed.
 - **Don't say:** "organic" about this product (the logo says it; only Premium is organic).
