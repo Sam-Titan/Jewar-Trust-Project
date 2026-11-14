@@ -1,0 +1,10 @@
+node_modules
+dist
+blender/out
+*.tsbuildinfo
+.DS_Store
+.env*
+.lighthouseci
+playwright-report
+test-results
+.playwright-mcp

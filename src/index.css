@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fdf8f4;
+  --color-green: #094233;
+  --color-red: #b22c37;
+  --color-rice: #e8d9b5;
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-cream font-body text-green antialiased;
+  }
+}

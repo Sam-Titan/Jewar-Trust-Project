@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "deny": ["Bash(git config *)", "Bash(gh repo edit *)", "Bash(gh api *collaborators*)"]
+  }
+}
