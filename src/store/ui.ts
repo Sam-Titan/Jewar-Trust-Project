@@ -9,6 +9,11 @@ type UiState = {
   /** Story scroll progress, 0–1. Read with getState() in useFrame (no re-render). */
   storyProgress: number;
   setStoryProgress: (progress: number) => void;
+  /** Product card. `cardRequested` flips once on first open so the lazy chunk stays mounted. */
+  cardOpen: boolean;
+  cardRequested: boolean;
+  openCard: () => void;
+  closeCard: () => void;
 };
 
 export const useUi = create<UiState>((set) => ({
@@ -18,4 +23,8 @@ export const useUi = create<UiState>((set) => ({
   setProgress: (progress) => set({ progress }),
   storyProgress: 0,
   setStoryProgress: (storyProgress) => set({ storyProgress }),
+  cardOpen: false,
+  cardRequested: false,
+  openCard: () => set({ cardOpen: true, cardRequested: true }),
+  closeCard: () => set({ cardOpen: false }),
 }));

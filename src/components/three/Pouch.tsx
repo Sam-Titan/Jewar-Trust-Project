@@ -2,11 +2,10 @@ import { ContactShadows, useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { type Group, MathUtils } from "three";
+import { MODEL_URL, POUCH_HEIGHT } from "@/lib/model";
 import { STORY_STEPS, stepFromProgress } from "@/lib/story";
 import { useUi } from "@/store/ui";
 
-const MODEL_URL = `${import.meta.env.BASE_URL}models/pouch.glb`;
-const POUCH_HEIGHT = 0.29; // metres
 const deg = MathUtils.degToRad;
 
 // Pouch turn (y) for each story step, then the end state. Tuned by eye.

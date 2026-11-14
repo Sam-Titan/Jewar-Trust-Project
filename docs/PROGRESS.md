@@ -9,18 +9,18 @@ _Update at the end of every session. Newest log entry on top._
 | 0 — Setup                | ✅ Done        |
 | 1 — 3D pouch             | ✅ Done        |
 | 2 — Hero                 | ✅ Done        |
-| 3 — Scroll story         | ✅ Done (waiting for Sam's check) |
-| 4 — Product card         | ⬜ Not started |
+| 3 — Scroll story         | ✅ Done        |
+| 4 — Product card         | ✅ Done (waiting for Sam's check) |
 | 5 — Polish & demo-ready  | ⬜ Not started |
 
-**Current phase:** 3 done; Phase 4 next (waiting for Sam)
+**Current phase:** 4 done; Phase 5 next (waiting for Sam)
 **Repo:** `Jewar-Trust-Project`
 **Live URL:** not deployed (deploy happens in Phase 5; D-026)
 
 ## Next steps
 
-1. Sam: check scroll smoothness in `just dev` on a laptop and a real phone; tune story height (`h-[400svh]` in `ScrollStory.tsx`) and `STEP_ANGLES` in `Pouch.tsx` if needed.
-2. Phase 4 — Product card, only when Sam says so. JS budget: 412 KB gzip now (limit 450 KB).
+1. Sam: check the card on a real laptop and phone (drag feel, vertical swipe from the pouch, toast).
+2. Phase 5 — polish and demo-ready, only when Sam says so. JS budget: 442.5 KB gzip now (limit 450 KB).
 
 ## Open questions (for Sam / client)
 
@@ -38,6 +38,15 @@ _Update at the end of every session. Newest log entry on top._
 - Anything marked TO CONFIRM is hidden.
 
 ## Session log
+
+### 2026-11-14 — Phase 4 (Claude Code)
+
+- Key light 1.4 → 1.9 (D-036). Plain paper 229–234 → 237–240 (photo 245). Red band kept (176/26/39, no clipping). Lights moved to `Lights.tsx`, shared by both canvases.
+- Product card (D-039, D-040): shadcn-style Dialog, `ViewerCanvas` (drag to turn, no zoom, idle reset), `SizeToggle` (1 kg / 5 kg: price, MRP, % off, net weight), Add to Cart / Buy Now → toast "This is a demo — checkout isn't live." TO CONFIRM values (origin, shelf life, cooking) are hidden. 5 kg shows "Demo price for this size."
+- **gzip:** initial JS **132.9 KB**, 3D chunk **280.4 KB** (unchanged: one shared copy of three/r3f/drei), card chunk **29.2 KB** (ProductCard 23.9 + ViewerCanvas 5.3). Total 442.5 KB (budget 450 KB).
+- Checked with Playwright at 1440×900 and 390×844: card opens/closes (✕, Esc, outside click), focus trapped and returned to the button, no console errors, no layout shift (scrollY and sticky canvas rect unchanged before/during/after), page pouch intact after close. Page canvas drew 0 frames while the card was open and resumed after. `pouch.glb` loaded once. Touch (CDP): vertical swipe starting on the pouch scrolls the card; sideways swipe turns the pouch. Reduced motion: card works, pouch snaps back with no animation. No WebGL: card shows the static image; no 3D chunk requested (hover prefetch skips it).
+- Found and fixed: r3f sets `touch-action: none` on its wrapper div, which blocked card scrolling even after the canvas was set to `pan-y`; orbiting the real camera made the pouch's side go black (lights are fixed), so the pouch is rotated instead.
+- Not measured: fps on real devices (headless uses software GL, which also makes the card's close animation slow there). The static `pouch-front.webp` has a baked shadow with a visible square edge on tinted backgrounds (Phase 5: re-export or crop).
 
 ### 2026-11-14 — Phase 3 (Claude Code)
 

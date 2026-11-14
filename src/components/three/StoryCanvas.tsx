@@ -1,8 +1,9 @@
-import { Environment, Lightformer, useProgress } from "@react-three/drei";
+import { useProgress } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { lazy, Suspense, useEffect } from "react";
 import { NeutralToneMapping } from "three";
 import { useUi } from "@/store/ui";
+import { Lights } from "./Lights";
 import { Pouch } from "./Pouch";
 
 // r3f-perf is dev only; the DEV check lets the bundler drop it from production.
@@ -20,30 +21,22 @@ function ProgressBridge() {
   return null;
 }
 
-// Warm key light so the paper matches the photo's cream (D-036).
-const KEY_LIGHT_COLOR = "#FFF4E6";
-
 export default function StoryCanvas({ animate }: { animate: boolean }) {
+  // The card has its own canvas, so the page canvas rests while it is open (D-018).
+  const cardOpen = useUi((s) => s.cardOpen);
   return (
     <Canvas
       dpr={[1, 1.75]}
       camera={{ position: [0, 0, 1.2], fov: 30 }}
       gl={{ alpha: true, antialias: true }}
-      frameloop={animate ? "always" : "demand"}
+      frameloop={animate && !cardOpen ? "always" : "demand"}
       onCreated={({ gl }) => {
         gl.toneMapping = NeutralToneMapping;
         gl.setClearColor(0x000000, 0);
       }}
     >
       <ProgressBridge />
-      {/* Procedural light only. No HDR file, nothing downloaded (D-033). */}
-      <Environment resolution={256} environmentIntensity={0.95}>
-        <Lightformer form="rect" intensity={2.2} position={[0, 3, 4]} scale={[8, 3, 1]} />
-        <Lightformer form="rect" intensity={1} position={[-4, 1, 2]} scale={[3, 5, 1]} />
-        <Lightformer form="rect" intensity={1} position={[4, 1, 2]} scale={[3, 5, 1]} />
-        <Lightformer form="ring" intensity={0.6} position={[0, -2, 3]} scale={4} />
-      </Environment>
-      <directionalLight color={KEY_LIGHT_COLOR} position={[1.5, 2.5, 3]} intensity={1.4} />
+      <Lights />
       <Suspense fallback={null}>
         <Pouch animate={animate} />
       </Suspense>

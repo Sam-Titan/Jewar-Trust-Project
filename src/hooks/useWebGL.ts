@@ -9,6 +9,9 @@ function detectWebGL() {
 
 const supported = detectWebGL();
 
+/** Same answer as useWebGL(), for code outside React. */
+export const webglSupported = supported;
+
 export function useWebGL() {
   return supported;
 }

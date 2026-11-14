@@ -14,3 +14,32 @@
     @apply bg-cream font-body text-green antialiased;
   }
 }
+
+/* Product card open/close. Plain fades; switched off for reduced motion. */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes overlay-out {
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-dialog-anim] {
+    animation: none;
+  }
+}

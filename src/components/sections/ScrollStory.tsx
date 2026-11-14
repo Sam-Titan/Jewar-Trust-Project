@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { product } from "@/data/product";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { prefetchCard } from "@/lib/card";
 import { STORY_STEPS, stepFromProgress } from "@/lib/story";
 import { useUi } from "@/store/ui";
 
@@ -18,6 +19,20 @@ function Badge({ className }: { className?: string }) {
       height={247}
       className={className}
     />
+  );
+}
+
+function ExploreButton({ className }: { className?: string }) {
+  const openCard = useUi((s) => s.openCard);
+  return (
+    <Button
+      className={className}
+      onClick={openCard}
+      onPointerEnter={prefetchCard}
+      onFocus={prefetchCard}
+    >
+      Explore the product
+    </Button>
   );
 }
 
@@ -43,8 +58,7 @@ function StoryList() {
           </li>
         ))}
       </ol>
-      {/* Phase 4: open the product card */}
-      <Button className="mt-12">Explore the product</Button>
+      <ExploreButton className="mt-12" />
     </section>
   );
 }
@@ -142,8 +156,7 @@ function StoryScroll() {
             >
               <h2 className="font-heading text-2xl text-green sm:text-4xl">{product.name}</h2>
               <p className="text-green/80">{product.tag}</p>
-              {/* Phase 4: open the product card */}
-              <Button>Explore the product</Button>
+              <ExploreButton />
             </motion.div>
           )}
         </AnimatePresence>

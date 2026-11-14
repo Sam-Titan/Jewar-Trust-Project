@@ -17,7 +17,31 @@ export const product = {
       line: "Handpicked by each member of our family for yours.",
     },
   ],
-  shopperNotes: ["Free shipping above ₹999", "Cash on Delivery", "Delivery all across India"],
+  shopperNotes: [
+    "Free shipping above ₹999",
+    "Cash on Delivery",
+    "Delivery all across India",
+    "Taxes included",
+  ],
+  // Product card (SPEC § 6).
+  rating: { value: 5.0, count: 5 },
+  description:
+    "Long grain, full aroma. Held to EU-standard residue controls, tested for 900+ pesticides, and handpicked by each member of our family for yours.",
+  grain: "Long",
+  sizes: [
+    { id: "1kg", label: "1 kg", netWeight: "1 kg", price: 160, mrp: 224, off: 28 },
+    // PLACEHOLDER: not a real price. Replace when the client confirms (D-021).
+    {
+      id: "5kg",
+      label: "5 kg",
+      netWeight: "5 kg",
+      price: 780,
+      mrp: 1120,
+      off: 30,
+      placeholder: true,
+    },
+  ],
+  cooking: null, // TO CONFIRM (rinse, soak, cook, rest) — hidden until confirmed
   socials: {
     facebook: "https://www.facebook.com/jewarorganic/",
     instagram: "https://www.instagram.com/jewarorganics/",

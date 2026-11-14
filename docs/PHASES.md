@@ -68,7 +68,7 @@ Do one phase at a time. Start the next only when Sam says so.
 
 **Tasks**
 
-- shadcn Dialog: `ViewerCanvas` (drag to turn, small zoom, auto-reset) on the left, details on the right (stacked on phone).
+- shadcn Dialog: `ViewerCanvas` (drag to turn, no zoom, auto-reset) on the left, details on the right (stacked on phone).
 - `SizeToggle` 1 kg / 5 kg updates price and net weight; `TO CONFIRM` values hidden.
 - Add to Cart / Buy Now → sonner toast "This is a demo — checkout isn't live."
 - Pause main canvas while open. Focus trap, Esc to close.
