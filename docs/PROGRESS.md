@@ -11,19 +11,22 @@ _Update at the end of every session. Newest log entry on top._
 | 2 — Hero                 | ✅ Done        |
 | 3 — Scroll story         | ✅ Done        |
 | 4 — Product card         | ✅ Done (waiting for Sam's check) |
-| 5 — Polish & demo-ready  | ⬜ Not started |
+| 5 — Polish & demo-ready  | 🟡 In progress (one open item: Lighthouse performance) |
 
-**Current phase:** 4 done; Phase 5 next (waiting for Sam)
+**Current phase:** 5 (code done except the performance score; deploy is Sam's)
 **Repo:** `Jewar-Trust-Project`
 **Live URL:** not deployed (deploy happens in Phase 5; D-026)
 
 ## Next steps
 
-1. Sam: check the card on a real laptop and phone (drag feel, vertical swipe from the pouch, toast).
-2. Phase 5 — polish and demo-ready, only when Sam says so. JS budget: 443.0 KB gzip now (limit 450 KB, 7 KB left).
+1. Sam: decide on the Lighthouse performance score (see Open questions) .
+2. Sam: check on a real phone and laptop (fps, drag feel, toast).
+3. Sam: commit, push, set Pages source to "GitHub Actions", run `deploy.yml`, open the live URL.
+4. Fill in the live URL in `index.html` (`og:image` needs a full URL to work in link previews).
 
 ## Open questions (for Sam / client)
 
+- [ ] **Lighthouse performance (mobile) is 0.66–0.68; target is 0.80.** Accessibility 1.00, Best Practices 1.00, SEO 1.00 pass. The only failing metric is Total Blocking Time (about 5.6 s). It comes from the 3D chunk: three.js start-up, shader compile and model upload, run with Lighthouse's 4× mobile CPU slowdown on headless Chromium's **software** GL (no GPU). With no CPU slowdown the score is 0.85 (TBT 570 ms). LCP 0.8 s, CLS 0.001. Real phones have a GPU, so this probably overstates it, but I can't prove that here. Options: (a) accept and note it, measure on a real phone with PageSpeed Insights after deploy; (b) lower the bar for the 3D page in `lighthouserc.json`; (c) spend more work cutting start-up cost (e.g. smaller env map, fewer lights, delay the canvas). A quick try of 128 px environment + dpr 1.5 did not change the score, so it was reverted.
 - [x] GitHub repo name: `Jewar-Trust-Project`.
 - [ ] Real 5 kg price (placeholder ₹780 in use).
 - [ ] Origin, shelf life, cooking instructions — confirm or keep hidden.
@@ -37,7 +40,27 @@ _Update at the end of every session. Newest log entry on top._
 - 5 kg price is a placeholder.
 - Anything marked TO CONFIRM is hidden.
 
+## Pitch checklist
+
+- **Link:** `https://<username>.github.io/Jewar-Trust-Project/` (after deploy).
+- **Show, in order:** hero (pouch floats) → scroll: five properties, pouch turns, badge on step 4 → "Explore the product" → drag the pouch, switch 1 kg / 5 kg → Add to Cart (demo toast) → farm strip and footer.
+- **Say up front (placeholders):** back of the pouch is a concept, not their artwork; Add to Cart / Buy Now don't work; 5 kg price (₹780) is a placeholder; origin, shelf life and cooking text are hidden until confirmed.
+- **Don't say:** "organic" about this product (the logo says it; only Premium is organic).
+- **Backup:** if the 3D fails, the page shows the still pouch. Reduced-motion users get a plain list.
+- **Before the meeting:** open the live URL on the demo laptop and a phone once, to warm the cache.
+
 ## Session log
+
+### 2026-11-14 — Phase 5 (Claude Code)
+
+- Added `@lhci/cli` and `@playwright/test` (both in the approved toolkit; D-044). `just test` builds and runs the smoke test; `just lh` builds and runs Lighthouse CI (3 runs, mobile).
+- Smoke test (`tests/smoke.spec.ts`): page loads, story scrolls (first and last callout show), card opens, Add to Cart toast shows, Esc closes, no console errors; plus a reduced-motion check. Green locally. CI now installs Chromium and runs it.
+- Lighthouse (mobile): Accessibility 1.00 (was 0.93: low-contrast small text, now `text-green/80` minimum), Best Practices 1.00, SEO 1.00, Performance 0.66–0.68 (see Open questions).
+- Meta: description, theme colour, Open Graph and Twitter tags, `og-image.png` (1200×630, pouch + wordmark; the "organic" logo is not used on it). Favicon was already there.
+- Static `pouch-front.webp`: baked shadow's square edge removed by fading the alpha at the edges (no re-render). Used by the no-WebGL fallback, the card fallback and the OG card.
+- WSL quirk: Lighthouse drops `C:\Users\...` temp folders in the repo root, which crashed Biome. They are gitignored, excluded from Biome, and `just lh` deletes them.
+- Checked at 1440×900 and 390×844 with Playwright MCP: hero fine, 0 console errors.
+- Not done: r3f-perf fps and real-phone pass (headless has no GPU). Please check on your devices. JS budget unchanged (443 KB gzip).
 
 ### 2026-11-14 — Phase 4 fixes (Claude Code)
 

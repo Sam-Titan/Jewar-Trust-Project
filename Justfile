@@ -35,9 +35,10 @@ optimize:
     pnpm exec gltf-transform inspect public/models/pouch.glb
     ls -l public/models/pouch.glb
 
-# Stubs until later phases
-test:
-    @echo "Not built yet (Phase 5)."
+# Playwright smoke test (builds first; serves dist/ itself)
+test: build
+    pnpm exec playwright test
 
-lh:
-    @echo "Not built yet (Phase 5)."
+# Lighthouse CI on the built site (mobile, 3 runs)
+lh: build
+    pnpm exec lhci autorun; status=$?; rm -rf C:*; exit $status

@@ -44,7 +44,7 @@ function Viewer() {
       {webgl && (
         <p
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-3 text-center text-xs tracking-wide text-green/60"
+          className="pointer-events-none absolute inset-x-0 bottom-3 text-center text-xs tracking-wide text-green/80"
         >
           Drag to turn
         </p>
@@ -89,7 +89,7 @@ export default function ProductCard() {
             <div aria-live="polite">
               <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="font-heading text-3xl text-green">{rupees(size.price)}</span>
-                <span className="text-green/60 line-through">{rupees(size.mrp)}</span>
+                <span className="text-green/80 line-through">{rupees(size.mrp)}</span>
                 <span className="text-sm font-semibold text-red">{size.off}% off</span>
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function ProductCard() {
               {specs.map(([k, v]) =>
                 v ? (
                   <div key={k}>
-                    <dt className="text-xs text-green/60">{k}</dt>
+                    <dt className="text-xs text-green/80">{k}</dt>
                     <dd className="text-green">{v}</dd>
                   </div>
                 ) : null,

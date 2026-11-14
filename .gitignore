@@ -8,3 +8,6 @@ blender/out
 playwright-report
 test-results
 .playwright-mcp
+
+# Lighthouse on WSL leaves Windows-style temp folders here
+C:*

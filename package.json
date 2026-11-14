@@ -35,7 +35,9 @@
   "devDependencies": {
     "@biomejs/biome": "^2.6.7",
     "@gltf-transform/cli": "^4.5.1",
+    "@lhci/cli": "^0.16.1",
     "@playwright/mcp": "^0.0.85",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",

@@ -17,3 +17,5 @@ jobs:
       - run: pnpm exec biome check .
       - run: pnpm exec tsc -b --noEmit
       - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright test

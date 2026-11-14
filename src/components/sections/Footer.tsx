@@ -33,7 +33,7 @@ export function Footer() {
           Instagram
         </a>
       </div>
-      <p className="mt-8 text-xs text-green/70">Demo by Swayam Bansal</p>
+      <p className="mt-8 text-xs text-green/80">Demo by Swayam Bansal</p>
     </footer>
   );
 }

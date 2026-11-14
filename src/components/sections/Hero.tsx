@@ -25,7 +25,7 @@ export function Hero() {
         </p>
         <a
           href="#story"
-          className="pointer-events-auto flex flex-col items-center gap-1 rounded-full px-3 py-1 text-xs tracking-[0.2em] text-green/70 uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red"
+          className="pointer-events-auto flex flex-col items-center gap-1 rounded-full px-3 py-1 text-xs tracking-[0.2em] text-green/80 uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red"
         >
           Scroll
           <ChevronDown

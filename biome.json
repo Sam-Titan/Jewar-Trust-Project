@@ -9,7 +9,11 @@
       "!assets",
       "!public/models",
       "!public/favicon.svg",
-      "!tests/pouch-overlap.js"
+      "!tests/pouch-overlap.js",
+      "!.lighthouseci",
+      "!C:*",
+      "!test-results",
+      "!playwright-report"
     ]
   },
   "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
