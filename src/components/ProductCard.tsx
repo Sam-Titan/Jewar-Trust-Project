@@ -24,7 +24,7 @@ function Viewer() {
     <div
       role="img"
       aria-label="Jewar Everyday Basmati Rice pouch. Drag sideways to turn it."
-      className={`relative h-72 rounded-xl md:h-full md:min-h-[480px] ${webgl ? "bg-rice/40" : "bg-cream"}`}
+      className={`relative h-72 rounded-xl md:h-full md:min-h-[440px] ${webgl ? "bg-rice/40" : "bg-cream"}`}
     >
       {webgl ? (
         <Suspense fallback={null}>
@@ -70,9 +70,9 @@ export default function ProductCard() {
   return (
     <Dialog open={open} onOpenChange={(o) => !o && closeCard()}>
       <DialogContent>
-        <div className="grid gap-4 p-4 md:grid-cols-2 md:gap-8 md:p-6">
+        <div className="grid gap-4 p-4 md:grid-cols-2 md:gap-6 md:p-5">
           <Viewer />
-          <div className="flex flex-col gap-5 pb-2 md:py-4 md:pr-8">
+          <div className="flex flex-col gap-4 pb-2 md:py-2 md:pr-10">
             <div className="flex flex-col gap-2">
               <DialogTitle className="font-heading text-3xl leading-tight text-green md:text-4xl">
                 {product.name}
@@ -92,25 +92,22 @@ export default function ProductCard() {
                 <span className="text-green/60 line-through">{rupees(size.mrp)}</span>
                 <span className="text-sm font-semibold text-red">{size.off}% off</span>
               </p>
-              {"placeholder" in size && (
-                <p className="mt-1 text-xs text-green/60">Demo price for this size.</p>
-              )}
             </div>
 
             <p className="text-green/80">{product.description}</p>
 
-            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 text-sm">
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
               {specs.map(([k, v]) =>
                 v ? (
-                  <div key={k} className="contents">
-                    <dt className="text-green/60">{k}</dt>
+                  <div key={k}>
+                    <dt className="text-xs text-green/60">{k}</dt>
                     <dd className="text-green">{v}</dd>
                   </div>
                 ) : null,
               )}
             </dl>
 
-            <ul className="flex flex-col gap-1 text-sm text-green/80">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-green/80">
               {product.shopperNotes.map((n) => (
                 <li key={n}>{n}</li>
               ))}

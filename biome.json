@@ -8,7 +8,8 @@
       "!**/*.md",
       "!assets",
       "!public/models",
-      "!public/favicon.svg"
+      "!public/favicon.svg",
+      "!tests/pouch-overlap.js"
     ]
   },
   "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },

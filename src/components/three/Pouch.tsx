@@ -1,7 +1,7 @@
 import { ContactShadows, useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { type Group, MathUtils } from "three";
+import { Box3, type Group, MathUtils, Vector3 } from "three";
 import { MODEL_URL, POUCH_HEIGHT } from "@/lib/model";
 import { STORY_STEPS, stepFromProgress } from "@/lib/story";
 import { useUi } from "@/store/ui";
@@ -14,6 +14,21 @@ const STEP_ANGLES = [0, deg(40), deg(140), 0, deg(-40)];
 const END_ANGLE = 0;
 const DAMP = 3.5; // higher = snappier
 
+// Where the pouch sits, as a share of the visible width/height (SPEC § 2).
+// Wide screens: hero pouch on the right (text on the left), damped to the centre for the story.
+// Portrait screens (aspect < 1): hero pouch in the top half, story pouch a little higher so the
+// callout fits below it.
+const HERO_X = 0.22; // × viewport width, wide screens
+const HERO_Y_PORTRAIT = 0.17; // × viewport height
+const STORY_Y_PORTRAIT = 0.13;
+const HERO_SCALE_PORTRAIT = 0.9;
+
+// Test hook: with ?debug=pouch the canvas gets data-pouch-box (the pouch's screen box, CSS px),
+// used by tests/pouch-overlap.js to check that no text overlaps the pouch.
+const DEBUG_BOX = new URLSearchParams(window.location.search).get("debug") === "pouch";
+const corner = new Vector3();
+const bounds = new Box3();
+
 // No Draco, Meshopt on.
 useGLTF.preload(MODEL_URL, false, true);
 
@@ -21,7 +36,6 @@ export function Pouch({ animate }: { animate: boolean }) {
   const { scene } = useGLTF(MODEL_URL, false, true);
   const layout = useRef<Group>(null);
   const motion = useRef<Group>(null);
-  const aspect = useThree((s) => s.size.width / s.size.height);
   const setModelReady = useUi((s) => s.setModelReady);
   const inStory = useRef(0); // 0 = hero, 1 = story (damped)
 
@@ -29,15 +43,52 @@ export function Pouch({ animate }: { animate: boolean }) {
     setModelReady(true);
   }, [setModelReady]);
 
-  const phone = aspect < 0.8;
-
-  useFrame(({ clock }, delta) => {
+  useFrame((state, delta) => {
+    const { clock, viewport, size, camera, gl } = state;
     const g = motion.current;
     const l = layout.current;
     if (!g || !l) return;
+
+    // Position and size on screen. `k` = 0 in the hero, 1 in the story.
+    const portrait = size.width / size.height < 1;
+    const place = (k: number) => {
+      l.scale.setScalar(portrait ? MathUtils.lerp(HERO_SCALE_PORTRAIT, 1, k) : 1);
+      l.position.x = portrait ? 0 : MathUtils.lerp(HERO_X * viewport.width, 0, k);
+      l.position.y = portrait
+        ? MathUtils.lerp(HERO_Y_PORTRAIT, STORY_Y_PORTRAIT, k) * viewport.height
+        : 0;
+    };
+    const reportBox = () => {
+      if (!DEBUG_BOX) return;
+      l.updateMatrixWorld(true);
+      bounds.setFromObject(g);
+      const r = gl.domElement.getBoundingClientRect();
+      let x0 = Number.POSITIVE_INFINITY;
+      let y0 = Number.POSITIVE_INFINITY;
+      let x1 = Number.NEGATIVE_INFINITY;
+      let y1 = Number.NEGATIVE_INFINITY;
+      for (let i = 0; i < 8; i++) {
+        corner.set(
+          i & 1 ? bounds.max.x : bounds.min.x,
+          i & 2 ? bounds.max.y : bounds.min.y,
+          i & 4 ? bounds.max.z : bounds.min.z,
+        );
+        corner.project(camera);
+        const x = r.left + ((corner.x + 1) / 2) * r.width;
+        const y = r.top + ((1 - corner.y) / 2) * r.height;
+        x0 = Math.min(x0, x);
+        y0 = Math.min(y0, y);
+        x1 = Math.max(x1, x);
+        y1 = Math.max(y1, y);
+      }
+      gl.domElement.dataset.pouchBox = [x0, y0, x1, y1].map(Math.round).join(",");
+    };
+
     if (!animate) {
       g.position.y = 0;
       g.rotation.y = 0;
+      place(0);
+      reportBox();
       return;
     }
     const t = clock.elapsedTime;
@@ -53,10 +104,8 @@ export function Pouch({ animate }: { animate: boolean }) {
     g.rotation.y = MathUtils.damp(g.rotation.y, story ? angle : sway, DAMP, delta);
     g.position.y = Math.sin(t * 0.8) * 0.008;
 
-    // Phone: bigger in the hero; in the story it sits higher so the callout fits below.
-    const targetScale = phone ? MathUtils.lerp(1.15, 1, inStory.current) : 1;
-    l.scale.setScalar(targetScale);
-    l.position.y = phone ? inStory.current * 0.085 : 0;
+    place(inStory.current);
+    reportBox();
   });
 
   return (

@@ -13,11 +13,11 @@ A one-page, scroll-driven 3D product page for **Jewar Everyday Basmati Rice**, t
 
 | #   | Section                   | What happens                                                                                                                                                                                                                                                                                  |
 | --- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **Hero**                  | JEWAR wordmark, 3D pouch floating slowly, brand line _"We Are Farmers, Growing Honest Food With Love & Care"_. Small "scroll" hint.                                                                                                                                                           |
-| 2   | **Scroll story**          | Section is pinned (sticky). As you scroll, the pouch turns. Each step, one property slides in beside it (left/right alternating on desktop, below the pouch on phone). 5 steps — see § 5. Ends with the **"Explore the product"** button.                                                     |
+| 1   | **Hero**                  | Slim header with the small Jewar logo (as-is). Text zone: brand line _"We Are Farmers, Growing Honest Food With Love & Care"_ and a small "scroll" hint. 3D pouch floating slowly. **Wide screens (aspect ≥ 1): text left, pouch right**; the pouch eases to the centre when the story starts. **Portrait screens: pouch in the top half, text below, scroll hint at the bottom.** Text never overlaps the pouch. |
+| 2   | **Scroll story**          | Section is pinned (sticky). As you scroll, the pouch turns. Each step, one property slides in beside it (left/right side zones on wide screens, below the pouch on portrait screens; never over the pouch). 5 steps — see § 5. Ends with the **"Explore the product"** button.                                                     |
 | 3   | **Farm strip**            | Pack line art (`farm-strip`) moving slowly sideways with scroll (light parallax). Short line: _"Handpicked by each member of our family for yours."_                                                                                                                                          |
 | 4   | **Product card** (dialog) | Opens from "Explore the product". Left: 3D pouch you drag to turn (no zoom, so wheel and pinch keep scrolling the card). Right: details (§ 6). Bottom: **Add to Cart** and **Buy Now** — not working; clicking shows a toast "This is a demo — checkout isn't live." Close with ✕, Esc or clicking outside. |
-| 5   | **Footer**                | Free shipping above ₹999 · Cash on Delivery · Delivery all across India. Facebook + Instagram links. Small credit line: **"Demo by Swayam Bansal"**.                                                                                                                                          |
+| 5   | **Footer**                | Small Jewar logo. Free shipping above ₹999 · Cash on Delivery · Delivery all across India. Facebook + Instagram links. Small credit line: **"Demo by Swayam Bansal"**.                                                                                                                                          |
 
 ## 3. Look
 
@@ -29,6 +29,10 @@ A one-page, scroll-driven 3D product page for **Jewar Everyday Basmati Rice**, t
 | `green` | `#094233` | Text, headings, line art          |
 | `red`   | `#B22C37` | Accents, buttons, badge           |
 | `rice`  | `#E8D9B5` | Soft highlights, card backgrounds |
+
+**Logo:** `assets/reference/jewar-logo.png` used unchanged (no crop, recolour or edit), converted to `jewar-logo.webp` (lossless, transparent). Small, in the hero header and the footer. Alt text: "Jewar Organic logo". The logo is the brand's own artwork and may show the word "organic"; product copy never does (see D-010, D-041).
+
+**Layout rule:** text and callouts never overlap the pouch. Checked by `tests/pouch-overlap.js` at the hero and every story step, at 1440×900 and 390×844.
 
 **Fonts:** Fraunces (headings) · Inter (body) — self-hosted via @fontsource. The JEWAR wordmark is the image from the pack, not typed text.
 
@@ -67,6 +71,7 @@ Short supporting lines only. No numbers beyond what's on the pack.
 - **Price (5 kg):** **PLACEHOLDER** ₹780 (MRP ₹1,120, 30% off) — not a real price; flagged `placeholder: true` in `product.ts`. Replace when the client confirms.
 - **Rating:** 5.0 (5 reviews) — show small, optional.
 - **Description:** long grain, full aroma, EU-standard residue controls, tested for 900+ pesticides, handpicked by the family.
+- **Layout:** compact; specs and shopper notes in 2 columns; fits 1440×900 with no scrollbar and the same height for both sizes. No "demo price" line (the placeholder is flagged in `product.ts` only).
 - **Specs:** Net wt 1 kg / 5 kg · Grain: long · Origin: TO CONFIRM · Shelf life: TO CONFIRM.
 - **How to cook:** general basmati steps (rinse, soak, cook, rest) — marked TO CONFIRM.
 - **Shopper notes:** Free shipping above ₹999 · Cash on Delivery · All-India delivery · Taxes included.
@@ -130,7 +135,8 @@ Jewar-Trust-Project/
 │       ├── 03-shape-reference.jpg
 │       ├── 04-trust-badge.png
 │       ├── 05-farm-strip.png
-│       └── 06-wordmark.png
+│       ├── 06-wordmark.png
+│       └── jewar-logo.png     # brand logo, used unchanged
 ├── blender/
 │   ├── build_pouch.py         # headless Blender script
 │   ├── previews/              # preview renders (committed, small)
@@ -144,7 +150,8 @@ Jewar-Trust-Project/
 │       ├── pouch-front.webp
 │       ├── trust-badge.webp
 │       ├── farm-strip.webp
-│       └── wordmark.webp
+│       ├── wordmark.webp
+│       └── jewar-logo.webp
 ├── src/
 │   ├── main.tsx
 │   ├── App.tsx

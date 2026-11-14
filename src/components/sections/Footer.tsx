@@ -3,6 +3,13 @@ import { product } from "@/data/product";
 export function Footer() {
   return (
     <footer className="bg-rice/40 px-6 py-12 text-center">
+      <img
+        src={`${import.meta.env.BASE_URL}images/jewar-logo.webp`}
+        alt="Jewar Organic logo"
+        width={387}
+        height={417}
+        className="mx-auto mb-8 h-14 w-auto"
+      />
       <ul className="flex flex-col items-center justify-center gap-2 text-sm text-green sm:flex-row sm:gap-8">
         {product.shopperNotes.map((note) => (
           <li key={note}>{note}</li>

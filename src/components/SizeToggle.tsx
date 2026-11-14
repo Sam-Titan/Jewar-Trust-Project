@@ -17,7 +17,7 @@ export function SizeToggle({ value, onChange }: { value: SizeId; onChange: (id: 
             onChange={() => onChange(s.id)}
             className="peer sr-only"
           />
-          <span className="flex h-10 min-w-20 items-center justify-center rounded-full px-5 text-sm font-semibold text-green transition-colors hover:bg-rice peer-checked:bg-green peer-checked:text-cream peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-green">
+          <span className="flex h-10 min-w-20 items-center justify-center rounded-full px-5 text-sm font-semibold text-green transition-colors not-peer-checked:hover:bg-rice peer-checked:bg-green peer-checked:text-cream peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-green">
             {s.label}
           </span>
         </label>

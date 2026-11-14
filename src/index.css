@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Wide = landscape-ish (aspect ≥ 1). Same breakpoint as the 3D pouch layout. */
+@custom-variant wide (@media (min-aspect-ratio: 1 / 1));
+
 @theme {
   --color-cream: #fdf8f4;
   --color-green: #094233;

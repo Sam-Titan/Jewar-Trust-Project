@@ -20,7 +20,7 @@ _Update at the end of every session. Newest log entry on top._
 ## Next steps
 
 1. Sam: check the card on a real laptop and phone (drag feel, vertical swipe from the pouch, toast).
-2. Phase 5 — polish and demo-ready, only when Sam says so. JS budget: 442.5 KB gzip now (limit 450 KB).
+2. Phase 5 — polish and demo-ready, only when Sam says so. JS budget: 443.0 KB gzip now (limit 450 KB, 7 KB left).
 
 ## Open questions (for Sam / client)
 
@@ -38,6 +38,16 @@ _Update at the end of every session. Newest log entry on top._
 - Anything marked TO CONFIRM is hidden.
 
 ## Session log
+
+### 2026-11-14 — Phase 4 fixes (Claude Code)
+
+- Logo (D-041, D-010 updated): `jewar-logo.png` used unchanged → `jewar-logo.webp` (lossless, transparent). Small in the hero header and the footer; alt "Jewar Organic logo". The big hero wordmark is gone (Sam: say if you want it back).
+- Layout (D-042): wide = text left / pouch right, pouch eases to centre for the story; portrait = pouch top half, text below, scroll hint at the bottom. Breakpoint is aspect 1:1 for both CSS and 3D (width alone broke on tablets).
+- Card (D-043): "Demo price" line removed; 2-column specs and notes; 541 px tall at 1440×900, no scrollbar, same height at 1 kg and 5 kg. Fixed the selected size pill turning pale on hover.
+- Check: `tests/pouch-overlap.js` (run with the Playwright MCP against `just preview`): hero + 5 steps + end, at 1440×900 and 390×844. 14 cases, 0 overlaps. Also checked that it fails when a callout is pushed onto the pouch.
+- Also checked: hero desktop/phone, reduced-motion hero (still pouch, same layout), footer, card on phone, no console errors.
+- gzip: initial 133.1 KB, 3D 280.8 KB (StoryCanvas 1.4 + shared 279.4), card 29.1 KB, total 443.0 KB.
+- Notes: `?debug=pouch` adds a few lines of measuring code to the 3D chunk; it does nothing without the flag. `tests/pouch-overlap.js` is excluded from Biome.
 
 ### 2026-11-14 — Phase 4 (Claude Code)
 

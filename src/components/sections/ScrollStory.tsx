@@ -65,7 +65,7 @@ function StoryList() {
 
 function StoryScroll() {
   const ref = useRef<HTMLElement>(null);
-  const desktop = useMediaQuery("(min-width: 768px)");
+  const desktop = useMediaQuery("(min-aspect-ratio: 1/1)");
   const [step, setStep] = useState(0);
   const [ended, setEnded] = useState(false);
   const setStoryProgress = useUi((s) => s.setStoryProgress);
@@ -108,7 +108,7 @@ function StoryScroll() {
                 transition={{ duration: 0.45, ease: "easeOut" }}
                 className={
                   desktop
-                    ? `absolute top-1/2 w-80 -translate-y-1/2 ${left ? "left-6" : "right-6"}`
+                    ? `absolute top-1/2 w-[min(20rem,26vw)] -translate-y-1/2 ${left ? "left-6" : "right-6"}`
                     : "absolute inset-x-6 bottom-[9svh] text-center"
                 }
               >
