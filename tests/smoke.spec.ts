@@ -35,7 +35,9 @@ test("page loads, story scrolls, card opens, toast shows", async ({ page }) => {
   await expect(page.getByText("This is a demo — checkout isn't live.")).toBeVisible();
 
   await page.keyboard.press("Escape");
-  await expect(dialog).toBeHidden();
+  // Radix keeps the node until the close animation ends, which software GL on CI can starve.
+  // So check the closed state, not that the node is gone.
+  await expect(dialog).toHaveAttribute("data-state", "closed");
   expect(errors).toEqual([]);
 });
 
